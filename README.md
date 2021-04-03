@@ -2,7 +2,7 @@
 
 ## Description
 
-### Link to the deployed application https://otivisan22.github.io/Daily_Planner/.
+### Link to the deployed application https://otivisan22.github.io/Weather_Dashboard/.
 
 # Getting started
 
@@ -11,7 +11,7 @@
 - Open the project into VSCode
 - Open the 'index.html' into your default browser
 
-git clone git@github.com: github.com/otivisan22/Daily_Planner
+git clone git@github.com: https://github.com/otivisan22/Weather_Dashboard
 Weather_Dashboard
 code .
 
