@@ -16,25 +16,64 @@
   </head>
   <body>
     <!-- Nav -->
-    <header></header>
+    
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+    </header>
 
     <!-- Sidebar -->
 
+
     <!-- Search box w/ button addon https://getbootstrap.com/docs/4.0/components/input-group/#button-addons -->
 
-    <!-- Listgroup of search history https://getbootstrap.com/docs/5.0/components/list-group/ -->
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="enterCity"
+        aria-label="Search City Here"
+        aria-describedby="basic-addon2"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit">Button</button>
+      </div>
+    </div>
 
+    <!-- Listgroup of search history https://getbootstrap.com/docs/5.0/components/list-group/ -->
+      <div class="list-group">
+         <a href="#" class="list-group-item">Lofoten</a> 
+         <a href="#" class="list-group-item">Stockholm</a>  
+         <a href="#" class="list-group-item">Väjxö</a> 
+         <a href="#" class="list-group-item">Bergen</a>   
+         <a href="#" class="list-group-item">Island</a>  
+       </div>
+   </div>
     <!-- Current weather main container -->
     <main>
       <div id="currentWeather">
         <!-- title, date, icon https://openweathermap.org/weather-conditions -->
+        "weather": [
+            {
+                "id": 802,
+                "main": "Clouds",
+                "description": "scattered cloud",
+                "icon": "03d"
+            }
+        ],
+        
         <h2 id="currentCityTitle">Lofoten</h2>
+      
         <!-- temp, humidity, windspeed, UV index -->
+
         <!-- low, med, high - css classes for green, yellow, red UV index -->
+
+
       </div>
     </main>
 
     <!-- 5 day forecast cards -->
+    
 
     <script src="./assets/js/script.js"></script>
     <link
