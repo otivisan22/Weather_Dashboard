@@ -52,6 +52,9 @@
     <!-- Current weather main container -->
     <main>
       <div id="currentWeather">
+          <img class="icon" alt="weather icon">
+          <div class="card-body">
+
         <!-- title, date, icon https://openweathermap.org/weather-conditions -->
         "weather": [
             {
@@ -64,7 +67,12 @@
         
         <h2 id="currentCityTitle">Lofoten</h2>
       
+      
         <!-- temp, humidity, windspeed, UV index -->
+        <p><id ="mainTemperature"></p>
+        <p><id ="mainHumidity"></p>
+        <p><id ="mainWindspeed"></p>
+        <p><id ="mainUV"></p>
 
         <!-- low, med, high - css classes for green, yellow, red UV index -->
 
@@ -78,16 +86,17 @@
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text"></p>
+            <img id="1stdayIcon" alt="weather icon">
+            <h5 class="card-title">1stdayTemperature</h5>
+            <p class="card-text" id ="1stdayHumidity"></p>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text"></p>
+            <h5 class="card-title">2nddayTemperature</h5>
+            <p class="card-text" id ="2nddayHumidity"></p>
           </div>
         </div>
       </div>
@@ -115,6 +124,7 @@
         </div>
       </div>
     </div>
+
   
 </div>  
 
