@@ -4,7 +4,7 @@ const renderCities = (citiesFromLocalStorage) => {
   // For each city construct a list item and append to the list group
 };
 
-const getCurrentData = (opeApiData) => {
+const getCurrentData = (oneApiData) => {
   // from object extract the data points you need for the return data
   return {
     name: "",
