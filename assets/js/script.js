@@ -13,6 +13,7 @@ return localStorageData;
   }
 };
 
+
 const fetchData = async (url) => {
   try {
     const response = await fetch(url);
@@ -79,9 +80,6 @@ const renderCurrentCardComponent = (currentData) => {
   // from current data build the current card component
 };
 
-const renderForecastCardComponent = (forecastData) => {
-  // from current data build the current card component
-};
 
 const fetchAllWeatherData = (cityName) => {
   //GET CURRENT WEATHER:https://openweathermap.org/current (documentation)
