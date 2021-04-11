@@ -29,6 +29,7 @@ const renderCities = (citiesFromLocalStorage) => {
   // For each city construct a list item and append to the list group
 };
 
+ // getCurrentData()  and store in currentData
 const getCurrentData = (data, name) => {
   const current = data.current;
   // from object extract the data points you need for the return data
