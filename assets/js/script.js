@@ -80,18 +80,6 @@ const renderCurrentCardComponent = (currentData) => {
   // from current data build the current card component
 };
 
-
-const fetchAllWeatherData = (cityName) => {
-  //GET CURRENT WEATHER:https://openweathermap.org/current (documentation)
-
-  // construct URL for http://api.openweathermap.org/data/2.5/weather?q={CITY_NAME}&appid={API_KEY} and store in variable called as weatherApiUrl
-  const url = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}`;
-
-  console.log(url);
-  const functionForJSON = (responseObject) => {
-    // unless you have some logic here do that before you return
-    return responseObject.json();
-  };
   const functionForApplication = (dataFromServer) => {
     //GET 5 DAYS FORECAST: https://openweathermap.org/api/one-call-api (documentation)
 
@@ -114,29 +102,6 @@ const fetchAllWeatherData = (cityName) => {
     const functionToHandleError = (errorObject) => {
       // handle your error here according to your application
     };
-    fetch(oneApiUrl)
-      .then(functionForJSON)
-      .then(functionForApplication)
-      .catch(functionToHandleError);
-  };
-  const functionToHandleError = (errorObject) => {
-    // handle your error here according to your application
-  };
-  fetch(weatherApiUrl)
-    .then(functionForJSON)
-    .then(functionForApplication)
-    .catch(functionToHandleError);
-};
-
-// function called on load of the document
-const onLoad = () => {
-  // read from local storage amd store data in variable called citiesFromLocalStorage
-  // if data is present call renderCities and pass the data from local storage
-  // renderCities(citiesFromLocalStorage)
-  // get the last city name from citiesFromLocalStorage and store in variable called cityName
-  // fetchAllWeatherData(cityName)
-};
-
 
 // function called when the form is submitted
 const onSubmit = async (event) => {
@@ -158,13 +123,36 @@ $("#city-input").val("");
 renderAllCards(cityName);
 };
 
-const onClick = () => {
-  // get city name from the list item that was clicked and store in variable called cityName
-  // fetchAllWeatherData(cityName)
+//GET CURRENT WEATHER:https://openweathermap.org/current (documentation)
+const renderAllCards = async (cityName) => {
+  // construct URL for http://api.openweathermap.org/data/2.5/weather?q={CITY_NAME}&appid={API_KEY} and store in variable called as weatherApiUrl
+  const currentDayUrl = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${API_KEY}`;
+
+  const currentDayResponse = await fetchData(currentDayUrl);
+
+  const forecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${currentDayResponse.coord.lat}&lon=${currentDayResponse.coord.lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
+
+  const forecastResponse = await fetchData(forecastUrl);
+
+  const cardsData = forecastResponse.daily.map(transformForecastData);
+
+  $("#forecast-cards-container").empty();
+
+  cardsData.slice(1, 6).forEach(renderForecastCard);
+
+  const currentDayData = transformCurrentDayData(
+    forecastResponse,
+    currentDayResponse.name
+  );
+
+  renderCurrentDayCard(currentDayData);
 };
 
-$("#target-your-list-items").click(onClick);
+const onReady = () => {
+  renderCitiesFromLocalStorage();
+};
 
-$("#your-form-id").submit(onSubmit);
+$("#search-by-city-form").on("submit", onSubmit);
 
-$(document).ready(onLoad);
+$(document).ready(onReady);
+
