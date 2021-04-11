@@ -1,4 +1,17 @@
+//declared variable for api_key
 const API_KEY = "75a509bd9aa5192f3561ad92ebafd98c";
+
+//get from local storage
+const getFromLocalStorage = () => {
+  const localStorageData = JSON.parse(localStorage.getItem("cities"));
+//if === null
+  if (localStorageData === null) {
+    return[]
+    else {
+return localStorageData;
+    }
+  }
+};
 
 const renderCities = (citiesFromLocalStorage) => {
   // For each city construct a list item and append to the list group
