@@ -43,17 +43,16 @@ const getCurrentData = (data, name) => {
   };
 };
 
-const getForecastData = (oneApiData) => {
-  // iterate and construct the return data array
-  return [
-    {
-      date: "",
-      iconURL: "",
-      temperature: "",
-      humidity: "",
-    },
-  ];
+const getForecastData = (data) => {
+  //iterate and construct the return data array
+  return {
+    date: moment.unix(data.dt).format("MM/DD/YYYY"),
+    iconURL: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
+    temperature: data.temp.day,
+    humidity: data.humidity,
+  };
 };
+
 
 const renderCurrentCardComponent = (currentData) => {
   // from current data build the current card component
@@ -119,10 +118,25 @@ const onLoad = () => {
   // fetchAllWeatherData(cityName)
 };
 
+
 // function called when the form is submitted
-const onSubmit = () => {
-  // get city name and store in variable called cityName
+const onSubmit = async (event) => {
+   // get city name and store in variable called cityName
   // fetchAllWeatherData(cityName)
+  event.preventDefault();
+
+const cityName = $("#city-input").val();
+const cities = getFromLocalStorage();
+
+cities.push(cityName);
+
+localStorage.setItem("cities", JSON.stringify(cities));
+
+renderCitiesFromLocalStorage();
+
+$("#city-input").val("");
+
+renderAllCards(cityName);
 };
 
 const onClick = () => {
