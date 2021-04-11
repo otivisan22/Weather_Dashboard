@@ -13,20 +13,33 @@ return localStorageData;
   }
 };
 
+const fetchData = async (url) => {
+  try {
+    const response = await fetch(url);
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const renderCities = (citiesFromLocalStorage) => {
   // For each city construct a list item and append to the list group
 };
 
-const getCurrentData = (oneApiData) => {
+const getCurrentData = (data, name) => {
+  const current = data.current;
   // from object extract the data points you need for the return data
   return {
-    name: "",
-    date: "",
-    iconURL: "",
-    temperature: "",
-    humidity: "",
-    windSpeed: "",
-    uvIndex: 0,
+    cityName: name,
+    temperature: current.temp,
+    humidity: current.humidity,
+    windSpeed: current.wind_speed,
+    date: moment.unix(current.dt).format("MM/DD/YYYY"),
+    iconURL: `http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`,
+    uvi: current.uvi,
   };
 };
 
