@@ -25,8 +25,28 @@ const fetchData = async (url) => {
   }
 };
 
-const renderCities = (citiesFromLocalStorage) => {
-  // For each city construct a list item and append to the list group
+// For each city construct a list item and append to the list group
+const renderCitiesFromLocalStorage = () => {
+  $("#searched-cities").empty();
+
+  const cities = getFromLocalStorage();
+
+  const ul = $("<ul>").addClass("list-group");
+
+  const appendListItemToUl = (city) => {
+    const li = $("<li>")
+      .addClass("list-group-item")
+      .attr("data-city", city)
+      .text(city);
+
+    ul.append(li);
+  };
+
+  cities.forEach(appendListItemToUl);
+
+  ul.on("click", getDataByCityName);
+
+  $("#searched-cities").append(ul);
 };
 
  // getCurrentData()  and store in currentData
