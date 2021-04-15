@@ -4,15 +4,13 @@ const API_KEY = "75a509bd9aa5192f3561ad92ebafd98c";
 //get from local storage
 const getFromLocalStorage = () => {
   const localStorageData = JSON.parse(localStorage.getItem("cities"));
-//if === null
+  //if === null
   if (localStorageData === null) {
-    return[]
-    else {
-return localStorageData;
-    }
+    return [];
+  } else {
+    return localStorageData;
   }
 };
-
 
 const fetchData = async (url) => {
   try {
@@ -45,12 +43,12 @@ const renderCitiesFromLocalStorage = () => {
 
   cities.forEach(appendListItemToUl);
 
-  ul.on("click", getDataByCityName);
+  //ul.on("click", getDataByCityName);
 
   $("#searched-cities").append(ul);
 };
 
- // getCurrentData()  and store in currentData
+// getCurrentData()  and store in currentData
 const getCurrentData = (data, name) => {
   const current = data.current;
   // from object extract the data points you need for the return data
@@ -75,52 +73,54 @@ const getForecastData = (data) => {
   };
 };
 
-
-const renderCurrentCardComponent = (currentData) => {
+const renderCurrentDayCard = (currentData) => {
   // from current data build the current card component
+  //currentCityTitle
+  $("currentCityTitle").text(currentData);
+  //temperature
+
+  //humidity
+
+  //windspeed
+
+  //uvIndex
 };
 
-  const functionForApplication = (dataFromServer) => {
-    //GET 5 DAYS FORECAST: https://openweathermap.org/api/one-call-api (documentation)
+const renderForecastCard = (cardData) => {
+  //Build new template card
+  let forecastCard = `
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <img alt="weather icon" src="http://openweathermap.org/img/wn/${cardData.icon}@2x.png">
+        <h5 class="card-title">${cardData.date}</h5>
+        <p class="card-text">Temp: ${cardData.temperature}</p>
+        <p class="card-text">Humidity: ${cardData.humidity}</p>
+      </div>
+    </div>
+  </div>`;
 
-    // whatever your application code is goes here
-    // 1. from the dataFromServer get the lat and lon
-    // 2. use lat lon to construct https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={API_KEY} and store in variable called oneApiUrl
-
-    const functionForJSON = (responseObject) => {
-      // unless you have some logic here do that before you return
-      return responseObject.json();
-    };
-    const functionForApplication = (dataFromServer) => {
-      // whatever your application code is goes here
-      // call a function getCurrentData() to get the current data from dataFromServer
-      // getCurrentData()  and store in currentData
-      // getForecastData() and store in forecastData
-      // renderCurrentCardComponent(currentData);
-      // renderForecastCardComponent(forecastData);
-    };
-    const functionToHandleError = (errorObject) => {
-      // handle your error here according to your application
-    };
+  //put card in html using jquery
+};
 
 // function called when the form is submitted
 const onSubmit = async (event) => {
-   // get city name and store in variable called cityName
+  // get city name and store in variable called cityName
   // fetchAllWeatherData(cityName)
-  event.preventDefault();
+  //event.preventDefault(); //Stops form from refreshing page
 
-const cityName = $("#city-input").val();
-const cities = getFromLocalStorage();
+  const cityName = $("#city-input").val();
+  const cities = getFromLocalStorage();
 
-cities.push(cityName);
+  cities.push(cityName);
 
-localStorage.setItem("cities", JSON.stringify(cities));
+  localStorage.setItem("cities", JSON.stringify(cities));
 
-renderCitiesFromLocalStorage();
+  renderCitiesFromLocalStorage();
 
-$("#city-input").val("");
+  $("#city-input").val("");
 
-renderAllCards(cityName);
+  renderAllCards(cityName);
 };
 
 //GET CURRENT WEATHER:https://openweathermap.org/current (documentation)
@@ -134,7 +134,9 @@ const renderAllCards = async (cityName) => {
 
   const forecastResponse = await fetchData(forecastUrl);
 
-  const cardsData = forecastResponse.daily.map(transformForecastData);
+  const cardsData = forecastResponse.daily.map(function (item) {
+    console.log(item);
+  });
 
   $("#forecast-cards-container").empty();
 
@@ -152,7 +154,9 @@ const onReady = () => {
   renderCitiesFromLocalStorage();
 };
 
-$("#search-by-city-form").on("submit", onSubmit);
-
+/* $("#search-by-city-form").on("submit", onSubmit); */
+$("#startSearch").click(function () {
+  ///Code to run when search button clicked
+  onSubmit();
+});
 $(document).ready(onReady);
-
