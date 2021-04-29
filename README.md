@@ -36,7 +36,8 @@ code .
 
 # Screenshots
 
-TODO
+![screenshot1](./assets/images/weather_dash.png)
+![screenshot2](./assets/images/weather_localstorage.png)
 
 # Testing
 
